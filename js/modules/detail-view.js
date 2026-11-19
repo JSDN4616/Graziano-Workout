@@ -6,6 +6,7 @@
 import { ICONS } from "./icons.js";
 import { exportRoutineToPDF } from "./pdf-export.js";
 import { getDifficultyBadgeClass } from "./badge-helper.js";
+import { calculateTableColumnWidths, buildColgroupHTML } from "./table-layout.js";
 
 export class RoutineDetailView {
   constructor(allRoutines) {
@@ -274,9 +275,14 @@ export class RoutineDetailView {
         <div class="sheet-days-container">
           ${routine.days
             .map((day, dayIdx) => {
-              const hasTut = (day.exercises || []).some((ex) => ex.tut);
+              const exercises = day.exercises || [];
+              const hasTut = exercises.some((ex) => ex.tut);
+              const colWidths = calculateTableColumnWidths(exercises, hasTut);
+              const colgroupHtml = buildColgroupHTML(colWidths, hasTut);
+              const isSplittable = exercises.length > 14;
+              const blockClass = `routine-day-block${isSplittable ? " table-splittable" : ""}`;
               return `
-            <div class="routine-day-block">
+            <div class="${blockClass}">
               <div class="routine-day-header">
                 <span class="routine-day-badge">BLOQUE // 0${dayIdx + 1}</span>
                 <h4 class="routine-day-title">${day.dayLabel}</h4>
@@ -284,19 +290,20 @@ export class RoutineDetailView {
 
               <div class="exercise-table-container">
                 <table class="exercise-table" aria-label="${day.dayLabel}">
+                  ${colgroupHtml}
                   <thead>
                     <tr>
-                      <th scope="col" class="col-order">#</th>
-                      <th scope="col" class="col-name">Ejercicio</th>
-                      <th scope="col" class="col-sets">Series</th>
-                      <th scope="col" class="col-reps">Reps</th>
-                      <th scope="col" class="col-rest">Descanso</th>
-                      ${hasTut ? `<th scope="col" class="col-tut">TUT</th>` : ""}
-                      <th scope="col" class="col-notes">Notas Técnicas & RPE</th>
+                      <th scope="col" class="col-order" style="width: ${colWidths.order};">#</th>
+                      <th scope="col" class="col-name" style="width: ${colWidths.name};">Ejercicio</th>
+                      <th scope="col" class="col-sets" style="width: ${colWidths.sets};">Series</th>
+                      <th scope="col" class="col-reps" style="width: ${colWidths.reps};">Reps</th>
+                      <th scope="col" class="col-rest" style="width: ${colWidths.rest};">Descanso</th>
+                      ${hasTut ? `<th scope="col" class="col-tut" style="width: ${colWidths.tut};">TUT</th>` : ""}
+                      <th scope="col" class="col-notes" style="width: ${colWidths.notes};">Notas Técnicas & RPE</th>
                     </tr>
                   </thead>
                   <tbody>
-                    ${(day.exercises || [])
+                    ${exercises
                       .map(
                         (ex) => `
                       <tr>
@@ -322,41 +329,54 @@ export class RoutineDetailView {
       </section>
       `
           : routine.exercises && routine.exercises.length > 0
-          ? `
+          ? (() => {
+              const exercises = routine.exercises;
+              const hasTut = exercises.some((ex) => ex.tut);
+              const colWidths = calculateTableColumnWidths(exercises, hasTut);
+              const colgroupHtml = buildColgroupHTML(colWidths, hasTut);
+              const isSplittable = exercises.length > 14;
+              const blockClass = `routine-day-block${isSplittable ? " table-splittable" : ""}`;
+              return `
       <section class="sheet-section">
         <h3 class="sheet-section-title">Matriz Técnica de Ejercicios</h3>
-        <div class="exercise-table-container">
-          <table class="exercise-table" aria-label="Tabla de ejercicios para ${routine.character}">
-            <thead>
-              <tr>
-                <th scope="col" class="col-order">#</th>
-                <th scope="col" class="col-name">Ejercicio</th>
-                <th scope="col" class="col-sets">Series</th>
-                <th scope="col" class="col-reps">Reps</th>
-                <th scope="col" class="col-rest">Descanso</th>
-                <th scope="col" class="col-notes">Notas Técnicas & RPE</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${routine.exercises
-                .map(
-                  (ex) => `
+        <div class="${blockClass}">
+          <div class="exercise-table-container">
+            <table class="exercise-table" aria-label="Tabla de ejercicios para ${routine.character}">
+              ${colgroupHtml}
+              <thead>
                 <tr>
-                  <td class="col-order">${ex.order}</td>
-                  <td class="col-name">${ex.name}</td>
-                  <td class="col-sets">${ex.sets}</td>
-                  <td class="col-reps">${ex.reps}</td>
-                  <td class="col-rest">${ex.rest || "—"}</td>
-                  <td class="col-notes">${ex.notes || "—"}</td>
+                  <th scope="col" class="col-order" style="width: ${colWidths.order};">#</th>
+                  <th scope="col" class="col-name" style="width: ${colWidths.name};">Ejercicio</th>
+                  <th scope="col" class="col-sets" style="width: ${colWidths.sets};">Series</th>
+                  <th scope="col" class="col-reps" style="width: ${colWidths.reps};">Reps</th>
+                  <th scope="col" class="col-rest" style="width: ${colWidths.rest};">Descanso</th>
+                  ${hasTut ? `<th scope="col" class="col-tut" style="width: ${colWidths.tut};">TUT</th>` : ""}
+                  <th scope="col" class="col-notes" style="width: ${colWidths.notes};">Notas Técnicas & RPE</th>
                 </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                ${exercises
+                  .map(
+                    (ex) => `
+                  <tr>
+                    <td class="col-order">${ex.order}</td>
+                    <td class="col-name">${ex.name}</td>
+                    <td class="col-sets">${ex.sets}</td>
+                    <td class="col-reps">${ex.reps}</td>
+                    <td class="col-rest">${ex.rest || "—"}</td>
+                    ${hasTut ? `<td class="col-tut">${ex.tut || "—"}</td>` : ""}
+                    <td class="col-notes">${ex.notes || "—"}</td>
+                  </tr>
+                `
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
-      `
+    `;
+            })()
           : ""
       }
 

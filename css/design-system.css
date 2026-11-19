@@ -33,10 +33,14 @@
 
 
   /* ── Graziano Workout · Difficulty Color System (4 Invariant Levels) ── */
-  --difficulty-beginner:     #56CFE1; /* Cian */
-  --difficulty-intermediate: #F4C95D; /* Ámbar */
-  --difficulty-advanced:     #FF5A5F; /* Rojo */
-  --difficulty-elite:        #C77DFF; /* Violeta */
+  --difficulty-beginner: #56CFE1;
+  /* Cian */
+  --difficulty-intermediate: #F4C95D;
+  /* Ámbar */
+  --difficulty-advanced: #FF5A5F;
+  /* Rojo */
+  --difficulty-elite: #C77DFF;
+  /* Violeta */
 
 
   /* ── Typography ── */
@@ -77,11 +81,13 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: 2rem;
+  scroll-padding-top: 4.5rem;
   -webkit-text-size-adjust: 100%;
   background-color: var(--black);
   color: var(--text-primary);
   font-family: var(--font-display);
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 body {
@@ -91,7 +97,8 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100vw;
   position: relative;
 }
 
@@ -156,8 +163,8 @@ img {
   max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
+  padding-left: clamp(0.75rem, 3.5vw, 1.25rem);
+  padding-right: clamp(0.75rem, 3.5vw, 1.25rem);
   position: relative;
   z-index: 1;
 }
@@ -207,6 +214,7 @@ img {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
+  overflow-wrap: break-word;
 }
 
 .tech-badge {
@@ -233,9 +241,8 @@ img {
 }
 
 .tech-badge--dim {
-  border: 1px solid #374151;
+  border: 1px solid rgba(229, 231, 235, 0.10);
   color: #E5E7EB;
-  background: #1F2937;
 }
 
 .tech-badge--danger {

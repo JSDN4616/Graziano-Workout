@@ -17,6 +17,7 @@ export class RoutineFilterEngine {
 
     this.initElements();
     this.bindEvents();
+    this.applyFilters();
   }
 
   initElements() {

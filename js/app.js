@@ -103,11 +103,23 @@ class GrazianoWorkoutApp {
         // Japanese or stylized letter for fallback art
         const initialLetter = routine.character.charAt(0);
 
-        // Image rendering — pure untouched image asset
+        // Image rendering with resilient fallback and error handling
         const imageHtml = routine.cardImage
-          ? `<img src="${routine.cardImage}" alt="${routine.character} — ${routine.name}" loading="lazy">`
-          : `<div class="card-image-fallback">
+          ? `<img src="${routine.cardImage}" alt="${routine.character} — ${routine.name}" loading="lazy"
+               onerror="this.classList.add('img-load-failed'); const fb = this.nextElementSibling; if (fb) fb.classList.remove('fallback-hidden');">
+             <div class="card-image-fallback fallback-hidden" aria-hidden="true">
                <span class="card-art-symbol">${initialLetter}</span>
+               <div class="card-fallback-meta">
+                 <span class="card-fallback-tag">ARCHIVO // GW</span>
+                 <span class="card-fallback-char">${routine.character}</span>
+               </div>
+             </div>`
+          : `<div class="card-image-fallback" aria-hidden="true">
+               <span class="card-art-symbol">${initialLetter}</span>
+               <div class="card-fallback-meta">
+                 <span class="card-fallback-tag">ARCHIVO // GW</span>
+                 <span class="card-fallback-char">${routine.character}</span>
+               </div>
              </div>`;
 
         return `

@@ -1,0 +1,763 @@
+/* ==========================================================================
+   GRAZIANO WORKOUT — TECHNICAL PRINT STYLESHEET
+   High Precision Editorial PDF Generation (A4 Portrait)
+   Zero screen regressions, zero dependencies, full table visibility
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 8mm 10mm 8mm 10mm;
+}
+
+@media print {
+  /* --------------------------------------------------------------------------
+     1. COLOR & BACKGROUND RECTIFICATION (ELIMINATE BLACK SCREEN SPILL)
+     -------------------------------------------------------------------------- */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+    font-size: 8.5pt !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body::before,
+  body::after,
+  html::before,
+  html::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     2. HIDE SCREEN-ONLY INTERFACE ELEMENTS
+     -------------------------------------------------------------------------- */
+  .site-header,
+  .hero-section,
+  .controls-section,
+  .catalog-section,
+  .author-section,
+  .site-footer,
+  .sheet-action-bar,
+  .sheet-related-section,
+  #catalogEmptyState,
+  main {
+    display: none !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     3. MODAL SHEET TO NATURAL PRINT DOCUMENT FLOW
+     -------------------------------------------------------------------------- */
+  .routine-modal-overlay {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .routine-sheet {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #111111 !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  /* Use block flow instead of flexbox for reliable paged fragmentation */
+  .sheet-content {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     4. HEADER & SPECIFICATIONS BLOCK
+     -------------------------------------------------------------------------- */
+  .sheet-header-block {
+    display: block !important;
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 0.85rem !important;
+    margin-bottom: 1.25rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .sheet-meta-eyebrow {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6.8pt !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .sheet-character-title {
+    font-size: 22pt !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+    color: #000000 !important;
+    letter-spacing: -0.02em !important;
+    text-transform: uppercase !important;
+    margin: 0 0 0.25rem 0 !important;
+  }
+
+  .sheet-routine-subtitle {
+    font-size: 10pt !important;
+    font-weight: 700 !important;
+    color: #222222 !important;
+    letter-spacing: 0.02em !important;
+    margin: 0 0 0.6rem 0 !important;
+  }
+
+  .sheet-routine-subtitle span {
+    font-weight: 400 !important;
+    color: #444444 !important;
+  }
+
+  .sheet-spec-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    background-color: #000000 !important;
+    border: 1px solid #000000 !important;
+    gap: 1px !important;
+    margin-top: 0.5rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .spec-cell {
+    background-color: #f7f7f7 !important;
+    padding: 0.45rem 0.6rem !important;
+  }
+
+  .spec-cell--full {
+    grid-column: 1 / -1 !important;
+  }
+
+  .spec-cell-label {
+    display: block !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 5.8pt !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .spec-cell-value {
+    display: block !important;
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    line-height: 1.25 !important;
+  }
+
+  .difficulty-badge {
+    display: inline-block !important;
+    font-size: 6.8pt !important;
+    padding: 0.1rem 0.35rem !important;
+    border: 1px solid #000000 !important;
+    color: #000000 !important;
+    background: transparent !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     5. SECTION STRUCTURE & ORPHAN PREVENTION
+     -------------------------------------------------------------------------- */
+  .sheet-section {
+    display: block !important;
+    margin-bottom: 1.35rem !important;
+    break-inside: auto !important;
+  }
+
+  .sheet-section-title {
+    display: block !important;
+    border-bottom: 1.5px solid #000000 !important;
+    color: #000000 !important;
+    font-size: 9pt !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    padding-bottom: 0.28rem !important;
+    margin-top: 1.15rem !important;
+    margin-bottom: 0.65rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .sheet-section-title + * {
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+
+  .sheet-section-title::before {
+    content: "■ " !important;
+    font-size: 6.5pt !important;
+    color: #000000 !important;
+  }
+
+  .sheet-stimulus-text {
+    font-size: 8pt !important;
+    line-height: 1.45 !important;
+    color: #222222 !important;
+    margin: 0 !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     6. EQUIPMENT, PILLARS, PROTOCOLS & SAFETY BOXES
+     -------------------------------------------------------------------------- */
+  .sheet-equipment-box,
+  .sheet-warmup-box,
+  .sheet-safety-box,
+  .sheet-schedule-box,
+  .sheet-lifestyle-box {
+    display: block !important;
+    background: #fafafa !important;
+    border: 1px solid #333333 !important;
+    padding: 0.65rem 0.85rem !important;
+    margin-bottom: 0.85rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .equipment-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+  }
+
+  .equipment-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: #f0f0f0 !important;
+    border: 1px solid #888888 !important;
+    color: #000000 !important;
+    padding: 0.15rem 0.4rem !important;
+    font-size: 7pt !important;
+  }
+
+  .equipment-tag-bullet {
+    color: #000000 !important;
+    font-size: 5pt !important;
+    margin-right: 0.25rem !important;
+  }
+
+  /* Training Pillars (Grid of 3, kept unified without mid-card cuts) */
+  .sheet-pillars-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  .pillar-card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: #fafafa !important;
+    border: 1px solid #333333 !important;
+    padding: 0.45rem 0.55rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .pillar-header {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 0.35rem !important;
+    border-bottom: 1px solid #666666 !important;
+    padding-bottom: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .pillar-num {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6.8pt !important;
+    font-weight: 800 !important;
+    color: #444444 !important;
+  }
+
+  .pillar-title {
+    font-size: 7.8pt !important;
+    font-weight: 800 !important;
+    color: #000000 !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+  }
+
+  .pillar-detail {
+    font-size: 7.2pt !important;
+    line-height: 1.35 !important;
+    color: #222222 !important;
+    margin: 0 !important;
+  }
+
+  /* Schedule / Distribution Grid */
+  .schedule-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.4rem !important;
+  }
+
+  .schedule-cell {
+    padding: 0.25rem 0 !important;
+  }
+
+  .schedule-label {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6pt !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    display: block !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .schedule-value {
+    font-size: 7.5pt !important;
+    color: #000000 !important;
+  }
+
+  /* Lists inside boxes */
+  .warmup-list,
+  .safety-list,
+  .lifestyle-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.3rem !important;
+  }
+
+  .warmup-item,
+  .safety-item,
+  .lifestyle-item {
+    font-size: 7.5pt !important;
+    line-height: 1.35 !important;
+    color: #111111 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.4rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .warmup-item::before {
+    content: "→" !important;
+    font-weight: 800 !important;
+    color: #000000 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .safety-item::before {
+    content: "▲" !important;
+    color: #000000 !important;
+    font-size: 6pt !important;
+    flex-shrink: 0 !important;
+    margin-top: 1px !important;
+  }
+
+  .lifestyle-item::before {
+    content: "◆" !important;
+    color: #000000 !important;
+    font-size: 5.5pt !important;
+    flex-shrink: 0 !important;
+    margin-top: 1px !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     7. TECHNICAL EXERCISE TABLES (CRITICAL FIX — FIT 100% A4 PORTRAIT)
+     -------------------------------------------------------------------------- */
+  .sheet-days-container {
+    display: block !important;
+  }
+
+  .routine-day-block {
+    display: block !important;
+    margin-bottom: 1.5rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .routine-day-block.table-splittable {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .routine-day-header {
+    display: block !important;
+    border-left: 3px solid #000000 !important;
+    padding-left: 0.5rem !important;
+    margin-bottom: 0.45rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  .routine-day-badge {
+    display: block !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6pt !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 0.1rem !important;
+    break-inside: avoid !important;
+  }
+
+  .routine-day-title {
+    display: block !important;
+    font-size: 8.8pt !important;
+    font-weight: 800 !important;
+    color: #000000 !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    break-inside: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  /* Remove all horizontal scroll and prevent premature header break */
+  .routine-day-header + .exercise-table-container,
+  .exercise-table-container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    border: 1px solid #111111 !important;
+    background: #ffffff !important;
+    margin-bottom: 0.65rem !important;
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+
+  .exercise-table {
+    display: table !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    border-collapse: collapse !important;
+    font-size: 7.2pt !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+  }
+
+  /* Repeat table headers across pages when split */
+  .exercise-table thead {
+    display: table-header-group !important;
+  }
+
+  .exercise-table tfoot {
+    display: table-footer-group !important;
+  }
+
+  .exercise-table tbody {
+    display: table-row-group !important;
+  }
+
+  /* Never split a single row across page boundaries */
+  .exercise-table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .exercise-table th {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6.2pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    padding: 0.45rem 0.55rem !important;
+    border-right: 1px solid #444444 !important;
+    border-bottom: 1.5px solid #000000 !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure th headers strictly retain crisp white text */
+  .exercise-table th,
+  .exercise-table th.col-order,
+  .exercise-table th.col-name,
+  .exercise-table th.col-sets,
+  .exercise-table th.col-reps,
+  .exercise-table th.col-rest,
+  .exercise-table th.col-tut,
+  .exercise-table th.col-notes {
+    color: #ffffff !important;
+  }
+
+  .exercise-table th:last-child {
+    border-right: none !important;
+  }
+
+  .exercise-table td {
+    padding: 0.45rem 0.55rem !important;
+    border-bottom: 1px solid #d5d5d5 !important;
+    border-right: 1px solid #e5e5e5 !important;
+    color: #111111 !important;
+    vertical-align: top !important;
+    box-sizing: border-box !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    hyphens: auto !important;
+  }
+
+  .exercise-table tr:last-child td {
+    border-bottom: none !important;
+  }
+
+  .exercise-table td:last-child {
+    border-right: none !important;
+  }
+
+  /* Dynamic column layout rules (widths assigned via <col> and <th>) */
+  .exercise-table .col-order {
+    text-align: center !important;
+  }
+
+  .exercise-table td.col-order {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-weight: 700 !important;
+    color: #444444 !important;
+    white-space: nowrap !important;
+  }
+
+  .exercise-table .col-name {
+    min-width: 0 !important;
+  }
+
+  .exercise-table td.col-name {
+    font-weight: 700 !important;
+    color: #000000 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+
+  .exercise-table .col-sets {
+    text-align: center !important;
+  }
+
+  .exercise-table td.col-sets {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+  }
+
+  .exercise-table .col-reps {
+    text-align: center !important;
+  }
+
+  .exercise-table td.col-reps {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+  }
+
+  .exercise-table .col-rest {
+    text-align: center !important;
+  }
+
+  .exercise-table td.col-rest {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+  }
+
+  .exercise-table .col-tut {
+    text-align: center !important;
+  }
+
+  .exercise-table td.col-tut {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+  }
+
+  .exercise-table .col-notes {
+    min-width: 0 !important;
+  }
+
+  .exercise-table td.col-notes {
+    font-size: 7.0pt !important;
+    line-height: 1.35 !important;
+    color: #222222 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     8. NUTRITION STRATEGY & RECIPES
+     -------------------------------------------------------------------------- */
+  .sheet-nutrition-box {
+    display: block !important;
+    background: #fafafa !important;
+    border: 1px solid #333333 !important;
+    padding: 0.5rem 0.65rem !important;
+    margin-bottom: 0.65rem !important;
+    break-inside: auto !important;
+  }
+
+  .nutrition-strategy-block {
+    display: block !important;
+    border-left: 2px solid #000000 !important;
+    padding-left: 0.45rem !important;
+    margin-bottom: 0.5rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .nutrition-strategy-label,
+  .recipe-sublabel {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 5.8pt !important;
+    font-weight: 700 !important;
+    color: #555555 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    display: block !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .nutrition-strategy-text {
+    font-size: 7.5pt !important;
+    line-height: 1.35 !important;
+    color: #222222 !important;
+    margin: 0 !important;
+  }
+
+  .recipes-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    break-inside: auto !important;
+  }
+
+  .recipe-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+    background: #ffffff !important;
+    border: 1px solid #555555 !important;
+    padding: 0.45rem 0.55rem !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .recipe-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    border-bottom: 1px solid #cccccc !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  .recipe-name {
+    font-size: 8pt !important;
+    font-weight: 800 !important;
+    color: #000000 !important;
+  }
+
+  .recipe-ingredients-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.25rem !important;
+  }
+
+  .recipe-ingredient-chip {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6.2pt !important;
+    background: #f0f0f0 !important;
+    border: 1px solid #cccccc !important;
+    padding: 0.1rem 0.3rem !important;
+    color: #111111 !important;
+  }
+
+  .recipe-purpose-text {
+    font-size: 7.2pt !important;
+    line-height: 1.3 !important;
+    color: #222222 !important;
+    margin: 0 !important;
+  }
+
+  /* --------------------------------------------------------------------------
+     9. EDITORIAL COLOPHON FOOTER AT END OF DOCUMENT
+     -------------------------------------------------------------------------- */
+  .sheet-content::after {
+    content: "GRAZIANO WORKOUT — DOCUMENTO TÉCNICO OFICIAL — REPOSITORIO DE ALTO RENDIMIENTO" !important;
+    display: block !important;
+    margin-top: 1rem !important;
+    padding-top: 0.4rem !important;
+    border-top: 1px solid #888888 !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace !important;
+    font-size: 6.2pt !important;
+    letter-spacing: 0.12em !important;
+    color: #555555 !important;
+    text-align: center !important;
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+}

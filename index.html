@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="css/design-system.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/routine-detail.css">
-
-  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/print.css" media="print">
+  <link rel="icon" type="image/svg+xml" href="assets/Ico.svg">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
     <div class="container">
       <a href="#" class="brand-logo" aria-label="Graziano Workout — Inicio">
         <div class="brand-icon" aria-hidden="true">
-          <!-- Espacio reservado para logotipo SVG externo -->
+          <img src="assets/Icono.svg" alt="Icono Invertido">
         </div>
         <div class="brand-titles">
           <span class="brand-name">GRAZIANO WORKOUT</span>
@@ -38,8 +38,9 @@
         <span class="tech-badge tech-badge--dim header-status-badge">
           V1.0 · ACCESO LIBRE
         </span>
-        <a href="#seccion-rutinas" class="btn btn-primary btn-sm">
-          <span>EXPLORAR RUTINAS</span>
+        <a href="#seccion-rutinas" class="btn btn-primary btn-sm header-cta-btn">
+          <span class="header-btn-text-desktop">EXPLORAR RUTINAS</span>
+          <span class="header-btn-text-mobile">CATÁLOGO</span>
         </a>
       </div>
     </div>
@@ -59,8 +60,7 @@
             </div>
 
             <h1 id="hero-heading" class="hero-title">
-              FORJA
-              TU FÍSICO.
+              FORJA TU FÍSICO.
               <span>SUPERA EL LÍMITE.</span>
             </h1>
 
@@ -87,7 +87,6 @@
 
           <!-- Hero Manga Panel -->
           <div class="hero-visual-panel" aria-hidden="true">
-            <span class="hero-panel-label">MÉTODO GRAZIANO<br>ARCHIVO TÉCNICO</span>
             <img src="assets/MichaelKaiserMin.webp" alt="Silueta editorial — Kaiser" class="hero-panel-image"
               loading="eager" fetchpriority="high" decoding="async">
           </div>
@@ -112,7 +111,7 @@
               </svg>
             </div>
             <input type="text" id="searchInput" class="search-input"
-              placeholder="BUSCAR POR PERSONAJE, ANIME, EJERCICIO O ENFOQUE..." autocomplete="off" spellcheck="false">
+              placeholder="BUSCAR POR PERSONAJE, ANIME O EJERCICIO..." autocomplete="off" spellcheck="false">
             <div class="search-shortcut-hint" aria-hidden="true">
               <kbd id="searchKbd" class="search-kbd">⌘ K</kbd>
             </div>

@@ -61,12 +61,13 @@
   z-index: 20;
   background-color: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
-  padding: 0.65rem var(--space-lg);
+  padding: 0.55rem clamp(0.75rem, 3vw, var(--space-lg));
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .sheet-action-left, .sheet-action-right {
@@ -85,11 +86,12 @@
   text-transform: uppercase;
   color: var(--text-muted);
   border: 1px solid var(--line);
-  padding: 0.4rem 0.7rem;
+  padding: 0.4rem clamp(0.5rem, 1.8vw, 0.7rem);
   background: transparent;
   cursor: pointer;
   transition: all var(--t-fast);
   letter-spacing: 0.04em;
+  min-height: 38px;
 }
 
 .btn-sheet-close:hover {
@@ -106,10 +108,10 @@
 
 /* Sheet Main Content */
 .sheet-content {
-  padding: var(--space-xl) var(--space-lg);
+  padding: clamp(1rem, 3vw, var(--space-xl)) clamp(0.75rem, 3vw, var(--space-lg));
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: clamp(1.25rem, 3vw, var(--space-2xl));
 }
 
 @media (min-width: 768px) {
@@ -121,7 +123,7 @@
 /* Sheet Header Block */
 .sheet-header-block {
   border-bottom: 1px solid var(--line);
-  padding-bottom: var(--space-xl);
+  padding-bottom: clamp(1rem, 3vw, var(--space-xl));
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
@@ -142,11 +144,13 @@
 }
 
 .sheet-character-title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(1.65rem, 5vw, 3.2rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 0.95;
   text-transform: uppercase;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .sheet-routine-subtitle {
@@ -259,7 +263,9 @@
 .exercise-table-container {
   border: 1px solid var(--line);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   background: var(--surface);
+  position: relative;
 }
 
 .exercise-table {
@@ -705,182 +711,5 @@
   text-transform: uppercase;
 }
 
-/* --------------------------------------------------------------------------
-   PRINT STYLES
-   -------------------------------------------------------------------------- */
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
+/* Print styles have been factored out into dedicated css/print.css */
 
-  body::before {
-    display: none !important;
-  }
-
-  .site-header,
-  .hero-section,
-  .controls-section,
-  .catalog-section,
-  .author-section,
-  .site-footer,
-  .sheet-action-bar,
-  .sheet-related-section {
-    display: none !important;
-  }
-
-  .routine-modal-overlay {
-    position: static !important;
-    background: transparent !important;
-    padding: 0 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    overflow: visible !important;
-  }
-
-  .routine-sheet {
-    border: none !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    transform: none !important;
-  }
-
-  .sheet-content {
-    padding: 0 !important;
-    gap: 1.5rem !important;
-  }
-
-  .sheet-header-block {
-    border-bottom: 2px solid #000000 !important;
-  }
-
-  .sheet-character-title {
-    color: #000000 !important;
-  }
-
-  .sheet-routine-subtitle,
-  .sheet-stimulus-text,
-  p {
-    color: #222222 !important;
-  }
-
-  .sheet-spec-grid {
-    background-color: #000000 !important;
-    border-color: #000000 !important;
-  }
-
-  .spec-cell {
-    background-color: #f7f7f7 !important;
-  }
-
-  .spec-cell-label {
-    color: #555555 !important;
-  }
-
-  .spec-cell-value {
-    color: #000000 !important;
-  }
-
-  .sheet-section-title {
-    border-bottom: 2px solid #000000 !important;
-    color: #000000 !important;
-  }
-
-  .sheet-section-title::before {
-    color: #000000 !important;
-  }
-
-  .sheet-warmup-box,
-  .sheet-safety-box,
-  .sheet-equipment-box,
-  .sheet-schedule-box,
-  .sheet-pillars-grid .pillar-card,
-  .sheet-nutrition-box,
-  .sheet-nutrition-box .recipe-card,
-  .sheet-lifestyle-box {
-    background: #fbfbfb !important;
-    border: 1px solid #333333 !important;
-    color: #000000 !important;
-  }
-
-  .routine-day-header {
-    border-left-color: #000000 !important;
-  }
-
-  .routine-day-title,
-  .schedule-value {
-    color: #000000 !important;
-  }
-
-  .equipment-tag {
-    background: #f0f0f0 !important;
-    color: #000000 !important;
-    border: 1px solid #888888 !important;
-  }
-
-  .pillar-title,
-  .recipe-name {
-    color: #000000 !important;
-  }
-
-  .pillar-detail,
-  .nutrition-strategy-text,
-  .recipe-purpose-text,
-  .lifestyle-item {
-    color: #222222 !important;
-  }
-
-  .recipe-ingredient-chip {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #cccccc !important;
-  }
-
-  .warmup-item,
-  .safety-item,
-  .lifestyle-item {
-    color: #111111 !important;
-  }
-
-  .exercise-table-container {
-    border: 1px solid #000000 !important;
-    background: #ffffff !important;
-  }
-
-  .exercise-table th {
-    background-color: #111111 !important;
-    color: #ffffff !important;
-    border-right: 1px solid #444444 !important;
-  }
-
-  .exercise-table td {
-    border-bottom: 1px solid #cccccc !important;
-    border-right: 1px solid #eeeeee !important;
-    color: #000000 !important;
-  }
-
-  .col-name {
-    color: #000000 !important;
-  }
-
-  .col-notes {
-    color: #333333 !important;
-  }
-
-  .sheet-content::after {
-    content: "GRAZIANO WORKOUT — DOCUMENTO TÉCNICO OFICIAL — REPOSITORIO DE ALTO RENDIMIENTO";
-    display: block;
-    margin-top: 2rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid #cccccc;
-    font-family: ui-monospace, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    color: #666666;
-    text-align: center;
-  }
-}
