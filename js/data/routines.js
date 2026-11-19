@@ -10,7 +10,7 @@ export const ROUTINES = [
   // ============================================================
   {
     id: "toji-fushiguro",
-    cardImage: "assets/TojiFushiguroMin.webp",
+    cardImage: "assets/TojiFushiguro.webp",
     name: "Protocolo de Restricción Divina",
     character: "Toji Fushiguro",
     anime: "Jujutsu Kaisen",
